@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.git": true,
+        "**/*:Zone.Identifier": true, 
+        "**/*.o": true
+    },
+    "C_Cpp.errorSquiggles": "enabled"
+}
