@@ -1,0 +1,38 @@
+This is a working version with the read and print functions working. 
+root@DESKTOP-CUIRAJN:~/projects/helloworld/NEWSTART# g++ -Wall -Werror -std=c++14 -O -o assign1 Node.cpp NodeList.cpp main.cpp
+root@DESKTOP-CUIRAJN:~/projects/helloworld/NEWSTART# ./assign1
+TESTING - COMMENT THE OUT TESTING BEFORE YOU SUBMIT!!!
+TESTING Node
+1,1,2
+4,2,3
+TESTING NodeList
+NodeList size: 0
+NodeList size: 1
+NodeList size: 2
+0,0,1
+PRINTING OUT A NODELIST IS AN EXERCISE FOR YOU TO DO
+DONE TESTING
+
+Enter the environment file name (including .env extension): test02.env
+Environment:
+= = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+= = S . . . . . = = = = = = = = = = = = 
+= = = = = = = . = = = = = = = = = = = = 
+= = = = = = = . = = = = = = = = = = = = 
+= = = = = = = . = = = = = = = = = = = = 
+= = = = = = = . = = = = = = = = = = = = 
+= = = = = = = . = = = = = = = = = = = = 
+= = = = = = = G = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = = = = = 
+root@DESKTOP-CUIRAJN:~/projects/helloworld/NEWSTART# 
