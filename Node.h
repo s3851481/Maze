@@ -29,6 +29,13 @@ public:
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
+
+
+
+
+
+
+
 //friend class CompareNodes;
 
 private:
@@ -43,8 +50,12 @@ private:
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
-int getRow() const;
-int getCol() const;
+
+
+
+
+
+
 };
 
 #endif //COSC_ASSIGN_ONE_NODE

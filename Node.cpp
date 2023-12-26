@@ -11,22 +11,12 @@ Node::~Node(){
     // TODO
 }
 
-int Node::getRow()
-{
-    return this->row;
-}
-
-int Node::getRow() const {
+int Node::getRow() {
     return row;
 }
 
-int Node::getCol() const {
+int Node::getCol() {
     return col;
-}
-
-int Node::getCol()
-{
-     return this->col;
 }
 
 int Node::getDistanceTraveled()
@@ -39,7 +29,7 @@ void Node::setDistanceTraveled(int dist_traveled) {
 }
 
 int Node::getEstimatedDist2Goal(Node* goal){
-    return abs(goal->getRow() - this->getRow()) + abs(goal->getCol() - this->getCol());
+    return abs(goal->getRow() - getRow()) + abs(goal->getCol() - getCol());
 }
 
 

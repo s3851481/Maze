@@ -34,6 +34,10 @@ int main(int argc, char** argv){
     Env env;
     readEnvStdin(env);
     printEnvStdout(env);
+
+    // Down then across
+    //std::cout << "test " << env[2][1] << std::endl;
+
     // Solve using forwardSearch
     // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 2
     //PathSolver* pathSolver = new PathSolver();
@@ -93,19 +97,44 @@ void printEnvStdout(Env env) {
 void testNode() {
     std::cout << "TESTING Node" << std::endl;
 
-    // Make a Node and print out the contents
-    Node* node = new Node(1, 1, 2);
-    std::cout << node->getRow() << ",";
-    std::cout << node->getCol() << ",";
-    std::cout << node->getDistanceTraveled() << std::endl;
-    delete node;
+    // Read the environment from the file
+    Env env;
+    readEnvStdin(env);
 
-    // Change Node and print again
-    node = new Node(4, 2, 3);
-    std::cout << node->getRow() << ",";
-    std::cout << node->getCol() << ",";
-    std::cout << node->getDistanceTraveled() << std::endl;
-    delete node;
+    // Find the starting point in the environment
+    int startRow = -1, startCol = -1;
+    int goalRow = -1, goalCol = -1;
+
+    for (int i = 0; i < ENV_DIM; ++i) {
+        for (int j = 0; j < ENV_DIM; ++j) {
+           // std::cout << "" << env[i][j];
+            if (env[i][j] == SYMBOL_START) {
+                startRow = i;
+                startCol = j;
+                std::cout << "Start Position: (" << startRow << ", " << startCol << ")" << std::endl;
+            } else if (env[i][j] == SYMBOL_GOAL) {
+                goalRow = i;
+                goalCol = j;
+                std::cout << "Goal Position: (" << goalRow << ", " << goalCol << ")" << std::endl;
+            }
+        }
+    }
+
+    if (startRow != -1 && goalRow != -1) {
+        // Create a test Node for the starting point
+        Node* startNode = new Node(startCol, startRow, 0);
+
+        // Print information about the starting point
+        std::cout << "Starting Point Information:" << std::endl;
+        std::cout << "Row: " << startNode->getRow() << std::endl;
+        std::cout << "Column: " << startNode->getCol() << std::endl;
+        std::cout << "Distance Traveled: " << startNode->getDistanceTraveled() << std::endl;
+
+        // Clean up memory
+        delete startNode;
+    } else {
+        std::cout << "Starting or goal point not found in the environment." << std::endl;
+    }
 }
 
 void testNodeList() {
