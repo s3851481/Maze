@@ -4,8 +4,7 @@
 #include "Types.h"
 #include "Node.h"
 
-#include <queue>
-//#include "CompareNodes.h"
+
 
 class NodeList{
 public:
@@ -34,12 +33,7 @@ public:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
 
-    
-    /*  bool containsNode(Node* node);
-  // Check if the NodeList contains a specific node in the open list
-    bool openListContains(std::priority_queue<Node*, std::vector<Node*>, CompareNodes>& openList, Node* node);
-    bool operator()(Node * lhs, Node * rhs);
-*/
+
 
 private:
     /*                                           */
@@ -56,6 +50,13 @@ private:
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
+
+
+
+
+
+
+    
 };
 
 

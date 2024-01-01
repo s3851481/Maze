@@ -12,9 +12,9 @@ public:
     /*                                           */
 
     // Constructor/Destructor
-    /*PathSolver();
+    PathSolver();
     ~PathSolver();
-    */
+    
     // Execute forward search algorithm
     // To be implemented for Milestone 2
     void forwardSearch(Env env);

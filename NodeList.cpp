@@ -13,6 +13,7 @@ NodeList::~NodeList(){
     }
 }
 
+//deep
 NodeList::NodeList(NodeList& other){
      // Copy constructor implementation
     length = other.length;
@@ -48,40 +49,11 @@ Node* NodeList::getNode(int i){
     }
 }
 
-/*  
-bool NodeList::containsNode(Node* node) {
-    if (node == nullptr) {
-        return false;
-    }
 
-    for (int i = 0; i < length; ++i) {
-        if (nodes[i]->getRow() == node->getRow() &&
-            nodes[i]->getCol() == node->getCol()) {
-            return true;
-        }
-    }
-    return false;
-}
-bool NodeList::openListContains(std::priority_queue<Node*, std::vector<Node*>, CompareNodes>& openList, Node* node) {
-    if (node == nullptr) {
-        return false;
-    }
 
-    std::priority_queue<Node*, std::vector<Node*>, CompareNodes> tempOpenList = openList;
 
-    while (!tempOpenList.empty()) {
-        if (tempOpenList.top()->getRow() == node->getRow() &&
-            tempOpenList.top()->getCol() == node->getCol()) {
-            return true;
-        }
-        tempOpenList.pop();
-    }
 
-    return false;
-}
 
-bool NodeList::operator()(Node *lhs, Node *rhs)
-{
-    return false;
-}
-  */
+
+
+

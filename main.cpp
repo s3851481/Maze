@@ -6,7 +6,7 @@
 #include "Types.h"
 #include "Node.h"
 #include "NodeList.h"
-//#include "PathSolver.h"
+#include "PathSolver.h"
 
 // Helper test functions
 void testNode();
@@ -33,16 +33,16 @@ int main(int argc, char** argv){
     // Load Environment 
     Env env;
     readEnvStdin(env);
-    printEnvStdout(env);
-
+    //printEnvStdout(env);
+    
     // Down then across
     //std::cout << "test " << env[2][1] << std::endl;
 
     // Solve using forwardSearch
     // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 2
-    //PathSolver* pathSolver = new PathSolver();
-    //pathSolver->forwardSearch(env);
-
+    PathSolver* pathSolver = new PathSolver();
+    pathSolver->forwardSearch(env);
+    delete pathSolver;
     //NodeList* exploredPositions = nullptr;
     //exploredPositions = pathSolver->getNodesExplored();
 
