@@ -50,10 +50,39 @@ Node* NodeList::getNode(int i){
 }
 
 
+Node* NodeList::getSmallestEstimation(Node* goalNode) {
+    std::cout << "test1" << std::endl;
+    if (length == 0) {
+        std::cerr << "Error: NodeList is empty." << std::endl;
+        return nullptr;
+    }
+
+    Node* smallestNode = nodes[0];
+    int smallestEstimation = smallestNode->getEstimatedDist2Goal(goalNode);
+
+    for (int i = 1; i < length; ++i) {
+        int currentEstimation = nodes[i]->getEstimatedDist2Goal(goalNode);
+        if (currentEstimation < smallestEstimation) {
+            smallestNode = nodes[i];
+            smallestEstimation = currentEstimation;
+        }
+    }
+
+    return smallestNode;
+}
+
+Node *NodeList::findNode(int targetRow, int targetCol)
+{
+    return nullptr;
+}
+
+int NodeList::getManhattanDistance(int targetRow, int targetCol)
+{
+    return 0;
+}
 
 
 
-
-
-
-
+void NodeList::setEstimatedDist2Goal(int estimation)
+{
+}

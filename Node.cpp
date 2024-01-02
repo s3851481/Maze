@@ -32,5 +32,9 @@ int Node::getEstimatedDist2Goal(Node* goal){
     return abs(goal->getRow() - getRow()) + abs(goal->getCol() - getCol());
 }
 
+int Node::getManhattanDistance(int targetRow, int targetCol)
+{
+    return 0;
+}
 
 //--------------------------------                             

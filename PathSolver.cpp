@@ -1,13 +1,23 @@
+/*
+The pathsolver program uses a backtracking algorithm to read an environment file and 
+finds the start position and goal position. It then searches the shortest path to the 
+goal position by using the manhattan equation.
+
+Issues I encountered included segmentation faults when pointers were not initialized. 
+While loops constantly running without progressing. 
+
+
+*/
+
 #include "PathSolver.h"
 #include <iostream>
-
-//added stuff 
-/*#include <climits> 
 #include "NodeList.h"
+
+#include <climits>
 #define DIRECTIONS_COUNT 4
+int directions[DIRECTIONS_COUNT][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 bool isValid(int row, int col);
-//added stuff
-*/
+
 
 PathSolver::PathSolver(){
     nodesExplored = new NodeList();
@@ -18,10 +28,6 @@ PathSolver::~PathSolver(){
 }
 //Milestone 2
 void PathSolver::forwardSearch(Env env) {
-    //int directions[DIRECTIONS_COUNT][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-
-    // Find the starting point in the environment
-    // Read the environment from the file
 
 
     // Find the starting point in the environment
@@ -30,7 +36,6 @@ void PathSolver::forwardSearch(Env env) {
 
     for (int i = 0; i < ENV_DIM; ++i) {
         for (int j = 0; j < ENV_DIM; ++j) {
-           // std::cout << "" << env[i][j];
             if (env[i][j] == SYMBOL_START) {
                 startRow = i;
                 startCol = j;
@@ -43,66 +48,69 @@ void PathSolver::forwardSearch(Env env) {
         }
     }
 
-    if (startRow != -1 && goalRow != -1) {
-        // Create a test Node for the starting point
+if (startRow != -1 && goalRow != -1) {
+        NodeList* openList = new NodeList();
+        NodeList* closedList = new NodeList();
         Node* startNode = new Node(startCol, startRow, 0);
+        openList->addElement(startNode);
+        Node* goalNode = new Node(goalCol, goalRow, 0); 
+std::cout << goalNode << std::endl;
+        // Main loop
+std::cout << "openList Length: " << openList->getLength() << std::endl;
+std::cout << "closedList Length: "<< closedList->getLength() << std::endl;
+      
+        
 
-        // Print information about the starting point
-        std::cout << "Starting Point Information:" << std::endl;
-        std::cout << "Row: " << startNode->getRow() << std::endl;
-        std::cout << "Column: " << startNode->getCol() << std::endl;
-        std::cout << "Distance Traveled: " << startNode->getDistanceTraveled() << std::endl;
+bool goalReached = false;
+while (openList->getLength() > 0 && !goalReached) {
+    // Get the starting point 
+    Node* smallestNode = openList->getNode(0);
+    std::cout << smallestNode << std::endl;
+    // Iterate through the openList to find the node with the smallest estimated distance
+    bool visited[ENV_DIM][ENV_DIM] = {false};
+    for (int i = 0; i < openList->getLength(); ++i) {
+        std::cout << "i: " << i << std::endl;
+        Node* current = openList->getNode(i);
+        std::cout << "Checking current Node - Row: " << current->getRow() << ", Col: " << current->getCol() << std::endl;
 
-        // Clean up memory
-        delete startNode;
-    } else {
-        std::cout << "Starting or goal point not found in the environment." << std::endl;
+        for (int dir = 0; dir < DIRECTIONS_COUNT; ++dir) {
+            int newRow = current->getRow() + directions[dir][0];
+            int newCol = current->getCol() + directions[dir][1];
+
+            // Print information about the current position
+            std::cout << "start: " << startRow << startCol << std::endl;
+            std::cout << "Checking position: Row " << newRow << ", Col " << newCol << std::endl;
+            std::cout << "goal: " << goalRow << goalCol << std::endl;
+
+            // Check if the new position is valid and hasn't been visited
+            if (newRow >= 0 && newRow < ENV_DIM && newCol >= 0 && newCol < ENV_DIM && !visited[newRow][newCol]) {
+                // Mark the position as visited
+                visited[newRow][newCol] = true;
+
+                // Print information about the validity of the position
+                std::cout << "Position is valid" << std::endl;
+
+                // Check if the new position is a wall
+                if (env[newRow][newCol] != SYMBOL_WALL) {
+                    // Create a new node for the neighbor and add it to the openList
+                    Node* neighbor = new Node(newCol, newRow, 0);
+                    openList->addElement(neighbor);
+
+                    // Print information about the added neighbor
+                    std::cout << "Added neighbor: Row " << newRow << ", Col " << newCol << std::endl;
+                } else {
+                    // Print information about the wall
+                    std::cout << "Wall detected at: Row " << newRow << ", Col " << newCol << std::endl;
+                }
+            } else {
+                // Print information about an invalid position or a visited position
+                std::cout << "Position is invalid or already visited" << std::endl;
+            }
+        }
     }
-    NodeList* openList = new NodeList();
-    NodeList* closedList = new NodeList();
-
-    Node* startNode = new Node(startCol, startRow, 0);
-    openList->addElement(startNode);
-    std::cout << "NodeList size: " << openList->getLength() << std::endl;
-
-// Print information about nodes in the openList
-for (int i = 0; i < openList->getLength(); ++i) {
-    Node* currentNode = openList->getNode(i);
-    std::cout << "Node " << i << " Information:" << std::endl;
-    std::cout << "Row: " << currentNode->getRow() << std::endl;
-    std::cout << "Column: " << currentNode->getCol() << std::endl;
-    std::cout << "Distance Traveled: " << currentNode->getDistanceTraveled() << std::endl;
 }
 
-
-
-// Clean up memory
-delete openList;
-delete closedList; 
-
-
-
-
-
-}
-
-
-
-
-   // Node startNode(startRow, startCol, 0);
-   // Node goalNode(goalRow, goalCol, 0);
-   // NodeList openList;
-    //NodeList closedList;
-    
-   
-    // Print the information for verification
-    //std::cout << "Start Node: (" << startNode.getRow() << ", " << startNode.getCol() << ")" << std::endl;
-    //std::cout << "Goal Node: (" << goalNode.getRow() << ", " << goalNode.getCol() << ")" << std::endl;
-
-    // Ensure there's an initial node in the open list
-    //openList.addElement(&startNode);
-
-
+}}
 
 
 
@@ -119,16 +127,6 @@ NodeList* PathSolver::getPath(Env env){
 }
 
 //-----------------------------
-
-
-//added stuff
-
- /*
-bool isValid(int row, int col)
-{
-    return false;
-}
- */
 
 bool isValid(int row, int col)
 {

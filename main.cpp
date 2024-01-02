@@ -21,14 +21,21 @@ void readEnvStdin(Env env);
 void printEnvStdout(Env env);
 
 int main(int argc, char** argv){
+
+
+
+
     // THESE ARE SOME EXAMPLE FUNCTIONS TO HELP TEST YOUR CODE
     // AS YOU WORK ON MILESTONE 2. YOU CAN UPDATE THEM YOURSELF
     // AS YOU GO ALONG.
     // COMMENT THESE OUT BEFORE YOU SUBMIT!!!
-    std::cout << "TESTING - COMMENT THE OUT TESTING BEFORE YOU SUBMIT!!!" << std::endl;
-    testNode();
-    testNodeList();
-    std::cout << "DONE TESTING" << std::endl << std::endl;
+    //std::cout << "TESTING - COMMENT THE OUT TESTING BEFORE YOU SUBMIT!!!" << std::endl;
+    //testNode();
+    //testNodeList();
+    //std::cout << "DONE TESTING" << std::endl << std::endl;
+
+
+
 
     // Load Environment 
     Env env;
@@ -58,6 +65,8 @@ int main(int argc, char** argv){
   */
     //delete exploredPositions;
 }
+
+
 
 void readEnvStdin(Env env) {
     // Prompt the user to enter the environment file name
@@ -93,6 +102,13 @@ void printEnvStdout(Env env) {
         std::cout << std::endl;
     }
 }
+
+
+
+
+
+
+
 
 void testNode() {
     std::cout << "TESTING Node" << std::endl;
