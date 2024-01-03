@@ -32,7 +32,7 @@ void PathSolver::forwardSearch(Env env) {
     int startRow = -1, startCol = -1;
     int goalRow = -1, goalCol = -1;
 
-    for (int i = 0; i < ENV_DIM; ++i) {
+    for (int i = 0; i < ENV_DIM && (startRow == -1 || goalRow == -1); ++i) {
         for (int j = 0; j < ENV_DIM; ++j) {
             if (env[i][j] == SYMBOL_START) {
                 startRow = i;
@@ -57,56 +57,65 @@ void PathSolver::forwardSearch(Env env) {
         std::cout << "openList Length: " << openList->getLength() << std::endl;
         std::cout << "closedList Length: " << closedList->getLength() << std::endl;
 
-bool goalFound = false;
+        bool goalFound = false;
+        int i = 0;
 
-for (int i = 0; i < openList->getLength() && !goalFound; ++i) {
-    Node* current = openList->getNode(i);
-    std::cout << "Checking current Node - Row: " << current->getCol() << ", Col: " << current->getRow() << std::endl;
+        while (i < openList->getLength() && !goalFound) {
+            Node* current = openList->getNode(i);
+            std::cout << "Checking current Node - Row: " << current->getCol() << ", Col: " << current->getRow() << std::endl;
 
-    for (int dir = 0; dir < DIRECTIONS_COUNT && !goalFound; ++dir) {
-        int newRow = current->getRow() + directions[dir][0];
-        int newCol = current->getCol() + directions[dir][1];
+            int dir = 0;
+            while (dir < DIRECTIONS_COUNT && !goalFound) {
+                int newRow = current->getRow() + directions[dir][0];
+                int newCol = current->getCol() + directions[dir][1];
 
-        std::cout << "Checking position: Row " << newRow << ", Col " << newCol << std::endl;
-
-        if (newRow >= 0 && newRow < ENV_DIM && newCol >= 0 && newCol < ENV_DIM) {
-            bool isInClosedList = false;
-
-            for (int j = 0; j < closedList->getLength(); ++j) {
-                Node* closedListNode = closedList->getNode(j);
-
-                if (closedListNode->getRow() == newRow && closedListNode->getCol() == newCol) {
-                    isInClosedList = true;
-                    break;  // No need to continue checking
-                }
-            }
-
-            if (!isInClosedList) {
                 std::cout << "Checking position: Row " << newRow << ", Col " << newCol << std::endl;
-                std::cout << "Position is valid" << std::endl;
 
-                if (env[newRow][newCol] == env[goalRow][goalCol]) {
-                    std::cout << "yay" << std::endl;
-                    goalFound = true;
-                    // You can add code here to construct the path or perform any other actions
-                    // ...
-                } else if (env[newRow][newCol] == SYMBOL_WALL) {
-                    std::cout << "Wall detected at: Row " << newRow << ", Col " << newCol << std::endl;
+                if (newRow >= 0 && newRow < ENV_DIM && newCol >= 0 && newCol < ENV_DIM) {
+                    bool isInClosedList = false;
+                    int j = 0;
+
+                    while (j < closedList->getLength() && !isInClosedList) {
+                        Node* closedListNode = closedList->getNode(j);
+
+                        if (closedListNode->getRow() == newRow && closedListNode->getCol() == newCol) {
+                            isInClosedList = true;
+                        }
+                        ++j;
+                    }
+
+                    if (!isInClosedList) {
+                        std::cout << "Checking position: Row " << newRow << ", Col " << newCol << std::endl;
+                        std::cout << "Position is valid" << std::endl;
+
+                        if (env[newRow][newCol] == env[goalRow][goalCol]) {
+                            std::cout << "Current position: (" << newRow << ", Col " << newCol << ")" << std::endl;
+                            std::cout << "Goal Position: (" << goalRow << ", " << goalCol << ")" << std::endl;
+                            std::cout << "Goal Reached - " << env[goalRow][goalCol] << std::endl;
+
+                            goalFound = true;
+                            // You can add code here to construct the path or perform any other actions
+                            // ...
+                        } else if (env[newRow][newCol] == SYMBOL_WALL) {
+                            std::cout << "Wall detected at: Row " << newRow << ", Col " << newCol << std::endl;
+                        } else {
+                            Node* neighbor = new Node(newRow, newCol, 0);
+                            openList->addElement(neighbor);
+                            std::cout << "Added neighbor: Row " << newRow << ", Col " << newCol << std::endl;
+                        }
+                    } else {
+                        std::cout << "Position is invalid or already visited" << std::endl;
+                    }
                 } else {
-                    Node* neighbor = new Node(newRow, newCol, 0);
-                    openList->addElement(neighbor);
-                    std::cout << "Added neighbor: Row " << newRow << ", Col " << newCol << std::endl;
+                    std::cout << "Position is out of bounds" << std::endl;
                 }
-            } else {
-                std::cout << "Position is invalid or already visited" << std::endl;
-            }
-        } else {
-            std::cout << "Position is out of bounds" << std::endl;
-        }
-    }
 
-    closedList->addElement(current);
-}
+                ++dir;
+            }
+
+            closedList->addElement(current);
+            ++i;
+        }
 
         delete openList;
         delete closedList;
@@ -114,7 +123,7 @@ for (int i = 0; i < openList->getLength() && !goalFound; ++i) {
 }
 
 
-//Deep Copy Milestone 2
+//Deep Copy Milestone 3
 NodeList* PathSolver::getNodesExplored(){
     return new NodeList(*nodesExplored);
 }
