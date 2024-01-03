@@ -90,52 +90,64 @@ for (int i = 0; i < openList->getLength(); ++i) {
         std::cout << "Checking position: Row " << newRow << ", Col " << newCol << std::endl;
         std::cout << "goal: " << goalRow << goalCol << std::endl;
 
-        // Check if the new position is valid
-        if (newRow >= 0 && newRow < ENV_DIM && newCol >= 0 && newCol < ENV_DIM) {
-            // Check if the new position is in the closedList
-            bool isInClosedList = false;
+// Inside the inner loop (for directions)
+for (int dir = 0; dir < DIRECTIONS_COUNT; ++dir) {
+    int newRow = current->getRow() + directions[dir][0];
+    int newCol = current->getCol() + directions[dir][1];
 
-            // Iterate through the nodes in the closedList
-            for (int j = 0; j < closedList->getLength(); ++j) {
-                Node* closedListNode = closedList->getNode(j);
-                if (closedListNode->getRow() == newRow && closedListNode->getCol() == newCol) {
-                    // The node at the new position is in the closedList
-                    isInClosedList = true;
-                    break;  // No need to continue checking
-                }
-            }
+    // Print information about the current position
+    std::cout << "start: " << startRow << startCol << std::endl;
+    std::cout << "Checking position: Row " << newRow << ", Col " << newCol << std::endl;
+    std::cout << "goal: " << goalRow << goalCol << std::endl;
 
-            if (!isInClosedList) {
-                // Mark the position as visited
-                closedList->addElement(new Node(newCol, newRow, 0));
-                std::cout << "Position added to closedList" << std::endl;
+    // Check if the new position is valid
+    if (newRow >= 0 && newRow < ENV_DIM && newCol >= 0 && newCol < ENV_DIM) {
+        // Check if the new position is in the closedList
+        bool isInClosedList = false;
 
-                // Print information about the validity of the position
-                std::cout << "Position is valid" << std::endl;
-
-                // Check if the new position is a wall
-                if (env[newRow][newCol] != SYMBOL_WALL) {
-                    // Create a new node for the neighbor and add it to the openList
-                    Node* neighbor = new Node(newCol, newRow, 0);
-                    openList->addElement(neighbor);
-
-                    // Print information about the added neighbor
-                    std::cout << "Added neighbor: Row " << newRow << ", Col " << newCol << std::endl;
-                } else {
-                    // Print information about the wall
-                    std::cout << "Wall detected at: Row " << newRow << ", Col " << newCol << std::endl;
-                }
-            } else {
-                // Print information about an invalid position or a visited position
-                std::cout << "Position is invalid or already visited" << std::endl;
+        // Iterate through the nodes in the closedList
+        for (int j = 0; j < closedList->getLength(); ++j) {
+            Node* closedListNode = closedList->getNode(j);
+            if (closedListNode->getRow() == newRow && closedListNode->getCol() == newCol) {
+                // The node at the new position is in the closedList
+                isInClosedList = true;
+                break;  // No need to continue checking
             }
         }
-    }
 
+        if (!isInClosedList) {
+            // Mark the position as visited
+            closedList->addElement(new Node(newCol, newRow, 0));
+            std::cout << "Position added to closedList" << std::endl;
+
+            // Print information about the validity of the position
+            std::cout << "Position is valid" << std::endl;
+
+            // Check if the new position is a wall
+            if (env[newRow][newCol] != SYMBOL_WALL) {
+                // Create a new node for the neighbor and add it to the openList
+                Node* neighbor = new Node(newCol, newRow, 0);
+                openList->addElement(neighbor);
+
+                // Print information about the added neighbor
+                std::cout << "Added neighbor: Row " << newRow << ", Col " << newCol << std::endl;
+            } else {
+                // Print information about the wall
+                std::cout << "Wall detected at: Row " << newRow << ", Col " << newCol << std::endl;
+            }
+        } else {
+            // Print information about an invalid position or a visited position
+            std::cout << "Position is invalid or already visited" << std::endl;
+        }
+    } else {
+        // Print information about an invalid position (newRow or newCol is -1)
+        std::cout << "Position is out of bounds" << std::endl;
+    }
+}
     // After checking all neighbors, add the current node to the closedList
     closedList->addElement(current);
 }
-
+}
 // Proper cleanup
 delete openList;
 delete closedList;
