@@ -29,7 +29,6 @@ PathSolver::~PathSolver(){
 //Milestone 2
 void PathSolver::forwardSearch(Env env) {
 
-
     // Find the starting point in the environment
     int startRow = -1, startCol = -1;
     int goalRow = -1, goalCol = -1;
@@ -48,44 +47,68 @@ void PathSolver::forwardSearch(Env env) {
         }
     }
 
+
+
 if (startRow != -1 && goalRow != -1) {
-        NodeList* openList = new NodeList();
+      
         NodeList* closedList = new NodeList();
+
+        NodeList* openList = new NodeList();
         Node* startNode = new Node(startCol, startRow, 0);
         openList->addElement(startNode);
+
         Node* goalNode = new Node(goalCol, goalRow, 0); 
-std::cout << goalNode << std::endl;
+        std::cout << goalNode << std::endl;
         // Main loop
 std::cout << "openList Length: " << openList->getLength() << std::endl;
 std::cout << "closedList Length: "<< closedList->getLength() << std::endl;
       
-        
 
-bool goalReached = false;
-while (openList->getLength() > 0 && !goalReached) {
+      
+// bool goalReached = false;
+// while (openList->getLength() > 0 && !goalReached) {
     // Get the starting point 
-    Node* smallestNode = openList->getNode(0);
-    std::cout << smallestNode << std::endl;
+    
+    //std::cout << smallestNode << std::endl;
     // Iterate through the openList to find the node with the smallest estimated distance
-    bool visited[ENV_DIM][ENV_DIM] = {false};
-    for (int i = 0; i < openList->getLength(); ++i) {
-        std::cout << "i: " << i << std::endl;
-        Node* current = openList->getNode(i);
-        std::cout << "Checking current Node - Row: " << current->getRow() << ", Col: " << current->getCol() << std::endl;
+    
+   
+    
+for (int i = 0; i < openList->getLength(); ++i) {
+    std::cout << i << std::endl;
+    std::cout << "Estimated distance of Node " << i << " to goal: " << openList->getNode(i)->getEstimatedDist2Goal(goalNode) << std::endl;
+    Node* current = openList->getNode(i);
+    std::cout << "Checking current Node - Row: " << current->getRow() << ", Col: " << current->getCol() << std::endl;
 
-        for (int dir = 0; dir < DIRECTIONS_COUNT; ++dir) {
-            int newRow = current->getRow() + directions[dir][0];
-            int newCol = current->getCol() + directions[dir][1];
+    // Iterate through the directions
+    for (int dir = 0; dir < DIRECTIONS_COUNT; ++dir) {
+        int newRow = current->getRow() + directions[dir][0];
+        int newCol = current->getCol() + directions[dir][1];
 
-            // Print information about the current position
-            std::cout << "start: " << startRow << startCol << std::endl;
-            std::cout << "Checking position: Row " << newRow << ", Col " << newCol << std::endl;
-            std::cout << "goal: " << goalRow << goalCol << std::endl;
+        // Print information about the current position
+        std::cout << "start: " << startRow << startCol << std::endl;
+        std::cout << "Checking position: Row " << newRow << ", Col " << newCol << std::endl;
+        std::cout << "goal: " << goalRow << goalCol << std::endl;
 
-            // Check if the new position is valid and hasn't been visited
-            if (newRow >= 0 && newRow < ENV_DIM && newCol >= 0 && newCol < ENV_DIM && !visited[newRow][newCol]) {
+        // Check if the new position is valid
+        if (newRow >= 0 && newRow < ENV_DIM && newCol >= 0 && newCol < ENV_DIM) {
+            // Check if the new position is in the closedList
+            bool isInClosedList = false;
+
+            // Iterate through the nodes in the closedList
+            for (int j = 0; j < closedList->getLength(); ++j) {
+                Node* closedListNode = closedList->getNode(j);
+                if (closedListNode->getRow() == newRow && closedListNode->getCol() == newCol) {
+                    // The node at the new position is in the closedList
+                    isInClosedList = true;
+                    break;  // No need to continue checking
+                }
+            }
+
+            if (!isInClosedList) {
                 // Mark the position as visited
-                visited[newRow][newCol] = true;
+                closedList->addElement(new Node(newCol, newRow, 0));
+                std::cout << "Position added to closedList" << std::endl;
 
                 // Print information about the validity of the position
                 std::cout << "Position is valid" << std::endl;
@@ -108,10 +131,19 @@ while (openList->getLength() > 0 && !goalReached) {
             }
         }
     }
+
+    // After checking all neighbors, add the current node to the closedList
+    closedList->addElement(current);
 }
 
-}}
+// Proper cleanup
+delete openList;
+delete closedList;
 
+
+
+
+}}
 
 
 
