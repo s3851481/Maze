@@ -65,7 +65,7 @@ void PathSolver::forwardSearch(Env env) {
                 int newRow = current->getRow() + directions[dir][0];
                 int newCol = current->getCol() + directions[dir][1];
 
-                //std::cout << "Checking position: Row " << newRow << ", Col " << newCol << std::endl;
+                std::cout << "Checking position: Row " << newRow << ", Col " << newCol << std::endl;
 
                 for (int dir = 0; dir < DIRECTIONS_COUNT; ++dir) {
                     int newRow = current->getRow() + directions[dir][0];
