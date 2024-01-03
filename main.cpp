@@ -1,3 +1,13 @@
+/*
+The pathsolver program uses a backtracking algorithm to read an environment file and 
+finds the start position and goal position. It then searches the shortest path to the 
+goal position by using the manhattan equation.
+
+Issues I encountered included segmentation faults when pointers were not initialized. 
+While loops constantly running without progressing. 
+
+
+*/
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
@@ -17,8 +27,8 @@ void readEnvStdin(Env env);
 
 // Print out a Environment to standard output with path.
 // To be implemented for Milestone 3
-//void printEnvStdout(Env env, NodeList* solution);
-void printEnvStdout(Env env);
+void printEnvStdout(Env env, NodeList* solution);
+//void printEnvStdout(Env env);
 
 int main(int argc, char** argv){
 
@@ -33,37 +43,42 @@ int main(int argc, char** argv){
     //testNode();
     //testNodeList();
     //std::cout << "DONE TESTING" << std::endl << std::endl;
-
-
-
-
     // Load Environment 
     Env env;
     readEnvStdin(env);
     //printEnvStdout(env);
     
-    // Down then across
-    //std::cout << "test " << env[2][1] << std::endl;
 
+    
+    
+    
+    
+    
+    
+    
     // Solve using forwardSearch
     // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 2
+
+
     PathSolver* pathSolver = new PathSolver();
     pathSolver->forwardSearch(env);
     delete pathSolver;
-    //NodeList* exploredPositions = nullptr;
-    //exploredPositions = pathSolver->getNodesExplored();
+
+
+    NodeList* exploredPositions = nullptr;
+    exploredPositions = pathSolver->getNodesExplored();
 
     // Get the path
     // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 3
-    //NodeList* solution = pathSolver->getPath(env);
+    NodeList* solution = pathSolver->getPath(env);
 
-    //printEnvStdout(env, solution);
-/*                                         
+    printEnvStdout(env, solution);
+                                         
     delete pathSolver;
-     exploredPositions;
+    delete exploredPositions;
     delete solution;
-  */
-    //delete exploredPositions;
+  
+
 }
 
 
@@ -93,15 +108,61 @@ void readEnvStdin(Env env) {
     inputFile.close();
 }
 
-void printEnvStdout(Env env) {
-    std::cout << "Environment:" << std::endl;
+
+
+// Print out a Environment to standard output with path.
+void printEnvStdout(Env env, NodeList* solution) {
+    std::cout << "Environment with Path:" << std::endl;
+
     for (int i = 0; i < ENV_DIM; ++i) {
         for (int j = 0; j < ENV_DIM; ++j) {
+            // Check if the current position is in the solution path
+            bool isInPath = false;
+            for (int k = 0; k < solution->getLength(); ++k) {
+                Node* pathNode = solution->getNode(k);
+                if (pathNode->getRow() == i && pathNode->getCol() == j) {
+                    isInPath = true;
+                    break;
+                }
+            }
+
+            // Output the appropriate symbol based on the movement in the path
+            if (isInPath) {
+                if (j < ENV_DIM - 1 && solution->getNode(i * ENV_DIM + (j + 1))) {
+                    std::cout << ">";  // Move Right
+                    continue;
+                }
+                if (j > 0 && solution->getNode(i * ENV_DIM + (j - 1))) {
+                    std::cout << "<";  // Move Left
+                    continue;
+                }
+                if (i > 0 && solution->getNode((i - 1) * ENV_DIM + j)) {
+                    std::cout << "^";  // Move Up
+                    continue;
+                }
+                if (i < ENV_DIM - 1 && solution->getNode((i + 1) * ENV_DIM + j)) {
+                    std::cout << "v";  // Move Down
+                    continue;
+                }
+            }
+
+            // If not in path or no movement, print the environment symbol
             std::cout << env[i][j] << " ";
         }
         std::cout << std::endl;
     }
 }
+
+
+// void printEnvStdout(Env env) {
+//     std::cout << "Environment:" << std::endl;
+//     for (int i = 0; i < ENV_DIM; ++i) {
+//         for (int j = 0; j < ENV_DIM; ++j) {
+//             std::cout << env[i][j] << " ";
+//         }
+//         std::cout << std::endl;
+//     }
+// }
 
 
 

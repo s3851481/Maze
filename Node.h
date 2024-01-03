@@ -35,7 +35,7 @@ public:
 
 
 
-//friend class CompareNodes;
+
 
 private:
     /*                                           */

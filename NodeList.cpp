@@ -13,7 +13,7 @@ NodeList::~NodeList(){
     }
 }
 
-//deep
+//deep copy 
 NodeList::NodeList(NodeList& other){
      // Copy constructor implementation
     length = other.length;
