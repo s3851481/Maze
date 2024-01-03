@@ -31,7 +31,11 @@ public:
     /*                                           */
 
 
+    // Copy constructor
+    Node(Node& other);
 
+    // Assignment operator
+    Node& operator=(Node& other);
 
 
 

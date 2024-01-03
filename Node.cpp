@@ -32,5 +32,10 @@ int Node::getEstimatedDist2Goal(Node* goal){
     return abs(goal->getRow() - getRow()) + abs(goal->getCol() - getCol());
 }
 
+Node::Node(Node& other) : row(other.row), col(other.col), dist_traveled(other.dist_traveled)
+{
+    // TODO: Implement copy constructor
+}
+
 
 //--------------------------------                             

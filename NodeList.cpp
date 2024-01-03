@@ -14,11 +14,22 @@ NodeList::~NodeList(){
 }
 
 //deep copy 
-NodeList::NodeList(NodeList& other){
-     // Copy constructor implementation
+// Copy constructor for NodeList
+NodeList::NodeList(NodeList& other) {
+    // Copy the length from the other NodeList
     length = other.length;
+    std::cout << "Length is " << length << std::endl;
+
+    // Allocate memory for the new array of nodes
+    //nodes[i] = new Node*[length];
+
+    // Copy each node from the other NodeList
     for (int i = 0; i < length; ++i) {
-        nodes[i] = new Node(*other.nodes[i]);
+        // Use the copy constructor of Node to create a new node
+        nodes[i] = new Node(*(other.nodes[i]));
+
+        // Print the values of the current node
+       
     }
 }
 

@@ -130,10 +130,60 @@ NodeList* PathSolver::getNodesExplored(){
 }
 
 //Milestone 3
-NodeList* PathSolver::getPath(Env env){
-        NodeList* path = new NodeList();
-        return path;
+NodeList* PathSolver::getPath(Env env) {
+    NodeList* path = new NodeList();
+
+    // Find the goal position in the environment
+    int startRow = -1, startCol = -1;
+    int goalRow = -1, goalCol = -1;
+
+    for (int i = 0; i < ENV_DIM && (startRow == -1 || goalRow == -1); ++i) {
+        for (int j = 0; j < ENV_DIM; ++j) {
+            if (env[i][j] == SYMBOL_START) {
+                startRow = i;
+                startCol = j;
+                std::cout << "Start Position: (" << startRow << ", " << startCol << ")" << std::endl;
+            } else if (env[i][j] == SYMBOL_GOAL) {
+                goalRow = i;
+                goalCol = j;
+                std::cout << "Goal Position: (" << goalRow << ", " << goalCol << ")" << std::endl;
+            }
+        }
+    }
+
+    if (goalRow != -1 && goalCol != -1) {
+        // Find the goal node in nodesExplored
+        Node* goalNode = nullptr;
+        int i = 0;
+        while (i < nodesExplored->getLength() && goalNode == nullptr) {
+            Node* currentNode = nodesExplored->getNode(i);
+            if (currentNode->getRow() == goalRow && currentNode->getCol() == goalCol) {
+                goalNode = currentNode;
+            }
+            ++i;
+        }
+
+        while (goalNode != nullptr) {
+            // Start from the goal node and backtrack to the start node
+            path->addElement(new Node(goalNode->getRow(), goalNode->getCol(), goalNode->getDistanceTraveled()));
+
+            // Find the previous node by iterating through nodesExplored
+            goalNode = nullptr;
+            i = 0;
+            while (i < nodesExplored->getLength() && goalNode == nullptr) {
+                Node* currentNode = nodesExplored->getNode(i);
+                if (currentNode->getDistanceTraveled() == goalNode->getDistanceTraveled() - 1 &&
+                    (abs(currentNode->getRow() - goalNode->getRow()) + abs(currentNode->getCol() - goalNode->getCol()) == 1)) {
+                    goalNode = currentNode;
+                }
+                ++i;
+            }
+        }
+    }
+
+    return path;
 }
+
 
 //-----------------------------
 
