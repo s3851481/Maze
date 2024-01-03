@@ -35,13 +35,7 @@ public:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
 
-    Node *getSmallestEstimation(Node *goalNode);
-Node* findNode(int targetRow, int targetCol);
-    // Declare the getManhattanDistance function
-    int getManhattanDistance(int targetRow, int targetCol) ;
 
-    // Declare the setEstimatedDist2Goal function
-    void setEstimatedDist2Goal(int estimation);
 private:
     /*                                           */
     /* DO NOT MOFIFY THESE VARIABLES             */

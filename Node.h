@@ -30,7 +30,6 @@ public:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
 
- int getManhattanDistance(int targetRow, int targetCol);
 
 
 
