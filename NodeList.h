@@ -34,7 +34,7 @@ public:
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
-
+// void setLength(int newLength);
 
 private:
     /*                                           */

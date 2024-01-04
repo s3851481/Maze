@@ -11,15 +11,20 @@ NodeList::~NodeList(){
     for (int i = 0; i < length; ++i) {
         delete nodes[i];
     }
+        //delete[] nodes; 
 }
 
 //deep copy 
 // Copy constructor for NodeList
-NodeList::NodeList(NodeList& other) : length(other.length) {
+NodeList::NodeList(NodeList& other) {
     // Copy the length from the other NodeList
+    length = other.length;
     std::cout << "Length is " << length << std::endl;
 
     // Allocate memory for the new array of nodes
+    
+
+    // Copy each node from the other NodeList
     for (int i = 0; i < length; ++i) {
         // Use the copy constructor of Node to create a new node
         nodes[i] = new Node(*(other.nodes[i]));
@@ -27,6 +32,7 @@ NodeList::NodeList(NodeList& other) : length(other.length) {
         // Print the values of the current node
     }
 }
+
 
 int NodeList::getLength(){
         // Return the number of elements in the NodeList
@@ -56,4 +62,7 @@ Node* NodeList::getNode(int i){
     }
 }
 
-
+// void NodeList::setLength(int newLength)
+// {
+//      length = newLength;
+// }

@@ -112,6 +112,8 @@ std::cout << "Distance travelled " << current->getDistanceTraveled() <<  std::en
             Node* goalNode = new Node(goalRow, goalCol, 0);
             closedList->addElement(goalNode);
         }
+
+    
         // Store the items in closedList to nodesExplored
         nodesExplored = new NodeList(*closedList);
         std::cout << "Nodes Explored: ";
@@ -135,7 +137,7 @@ NodeList* PathSolver::getNodesExplored(){
 //Milestone 3
 NodeList* PathSolver::getPath(Env env) {
     NodeList* path = new NodeList();
-
+    //std::cout << length << std::endl;
     // Find the goal position in the environment
     int startRow = -1, startCol = -1;
     int goalRow = -1, goalCol = -1;
@@ -158,6 +160,7 @@ NodeList* PathSolver::getPath(Env env) {
         // Find the goal node in nodesExplored
         Node* goalNode = nullptr;
         int i = 0;
+        std::cout << nodesExplored->getLength() << std::endl;
         while (i < nodesExplored->getLength() && goalNode == nullptr) {
             Node* currentNode = nodesExplored->getNode(i);
             if (currentNode->getRow() == goalRow && currentNode->getCol() == goalCol) {

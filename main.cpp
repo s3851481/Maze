@@ -62,25 +62,32 @@ int main(int argc, char** argv){
 
     PathSolver* pathSolver = new PathSolver();
     pathSolver->forwardSearch(env);
-    //delete pathSolver;
+
 
 
     NodeList* exploredPositions = nullptr;
+
+
+    
     exploredPositions = pathSolver->getNodesExplored();
 // Print the content of exploredPositions
+
 std::cout << "Explored Positions: ";
 for (int i = 0; i < exploredPositions->getLength(); ++i) {
     Node* exploredNode = exploredPositions->getNode(i);
     std::cout << "(" << exploredNode->getRow() << ", " << exploredNode->getCol() << ", " << exploredNode->getDistanceTraveled() << ") ";
 }
 std::cout << std::endl;
+
+
+
     // Get the path
     // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 3
    
    
     NodeList* solution = pathSolver->getPath(env);   
    
-    //printEnvStdout(env, solution);
+    printEnvStdout(env, solution);
                                      
     delete pathSolver;
     delete exploredPositions;
