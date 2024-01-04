@@ -19,8 +19,8 @@ NodeList::~NodeList(){
 NodeList::NodeList(NodeList& other) {
     // Copy the length from the other NodeList
     length = other.length;
-    std::cout << "Length is " << length << std::endl;
-
+    std::cout << "Lengths is " << length << std::endl;
+   
     // Allocate memory for the new array of nodes
     
 
@@ -29,7 +29,7 @@ NodeList::NodeList(NodeList& other) {
         // Use the copy constructor of Node to create a new node
         nodes[i] = new Node(*(other.nodes[i]));
 
-        // Print the values of the current node
+        
     }
 }
 

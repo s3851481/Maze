@@ -128,7 +128,7 @@ std::cout << std::endl;
     }
 }
 
-
+//here
 //Deep Copy Milestone 3
 NodeList* PathSolver::getNodesExplored(){
     return new NodeList(*nodesExplored);

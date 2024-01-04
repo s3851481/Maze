@@ -35,13 +35,13 @@ int Node::getEstimatedDist2Goal(Node* goal){
 Node::Node(Node& other)
     : row(other.row), col(other.col), dist_traveled(other.dist_traveled) {}
 
-// Node& Node::operator=(Node& other) {
-//     if (this != &other) {
-//         row = other.row;
-//         col = other.col;
-//         dist_traveled = other.dist_traveled;
-//     }
-//     return *this;
-// }
+Node& Node::operator=(Node& other) {
+    if (this != &other) {
+        row = other.row;
+        col = other.col;
+        dist_traveled = other.dist_traveled;
+    }
+    return *this;
+}
 
 //--------------------------------                             
