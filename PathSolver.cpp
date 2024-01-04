@@ -108,7 +108,10 @@ std::cout << "Distance travelled " << current->getDistanceTraveled() <<  std::en
         closedList->addElement(current);
         ++i;
     }
-
+        if (goalFound) {
+            Node* goalNode = new Node(goalRow, goalCol, 0);
+            closedList->addElement(goalNode);
+        }
         // Store the items in closedList to nodesExplored
         nodesExplored = new NodeList(*closedList);
         std::cout << "Nodes Explored: ";

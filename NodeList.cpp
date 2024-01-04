@@ -15,21 +15,16 @@ NodeList::~NodeList(){
 
 //deep copy 
 // Copy constructor for NodeList
-NodeList::NodeList(NodeList& other) {
+NodeList::NodeList(NodeList& other) : length(other.length) {
     // Copy the length from the other NodeList
-    length = other.length;
     std::cout << "Length is " << length << std::endl;
 
     // Allocate memory for the new array of nodes
-    //nodes[i] = new Node*[length];
-
-    // Copy each node from the other NodeList
     for (int i = 0; i < length; ++i) {
         // Use the copy constructor of Node to create a new node
         nodes[i] = new Node(*(other.nodes[i]));
 
         // Print the values of the current node
-       
     }
 }
 
@@ -41,6 +36,7 @@ int NodeList::getLength(){
 void NodeList::addElement(Node* newPos){
     // Add a COPY node element to the BACK of the NodeList.
     // Check for array bounds 
+    
     if (length < NODE_LIST_ARRAY_MAX_SIZE) {
         nodes[length] = new Node(*newPos);
         ++length;
